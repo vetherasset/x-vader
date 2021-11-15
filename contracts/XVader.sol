@@ -29,8 +29,12 @@ contract XVader is ProtocolConstants, ERC20Votes, ReentrancyGuard {
         // Gets the amount of xVader in existence
         uint totalShares = totalSupply();
 
-        uint xVADERToMint = totalShares == 0 || totalVader == 0 // If no xVader exists, mint it 1:1 to the amount put in
-            ? _amount // Calculate and mint the amount of xVader the vader is worth. // The ratio will change overtime, as xVader is burned/minted and // vader deposited + gained from fees / withdrawn.
+        // If no xVader exists, mint it 1:1 to the amount put in.
+        // Calculate and mint the amount of xVader the vader is worth.
+        // The ratio will change overtime, as xVader is burned/minted and
+        // vader deposited + gained from fees / withdrawn.
+        uint xVADERToMint = totalShares == 0 || totalVader == 0
+            ? _amount
             : (_amount * totalShares) / totalVader;
 
         _mint(msg.sender, xVADERToMint);
