@@ -13,7 +13,9 @@ contract XVader is ERC20Votes, ReentrancyGuard {
      * @dev Initializes contract's state by setting vader's tokens address and
      * setting current token's name and symbol.
      **/
+    // TODO: finalize name and symbol
     constructor(IERC20 _vader) ERC20Permit("XVader") ERC20("XVader", "xVADER") {
+        // TODO: shorten error message?
         require(
             _vader != IERC20(address(0)),
             "XVader::constructor: _vader cannot be a zero address"

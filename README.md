@@ -1,5 +1,8 @@
 # X Vader
 
+TODO: slither
+TODO: integration test
+
 ### Install
 
 ```shell
