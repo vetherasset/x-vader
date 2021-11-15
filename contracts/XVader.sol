@@ -4,9 +4,8 @@ pragma solidity 0.8.9;
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import "./ProtocolConstants.sol";
 
-contract XVader is ProtocolConstants, ERC20Votes, ReentrancyGuard {
+contract XVader is ERC20Votes, ReentrancyGuard {
     // Address of vader token
     IERC20 public immutable vader;
 
@@ -16,7 +15,7 @@ contract XVader is ProtocolConstants, ERC20Votes, ReentrancyGuard {
      **/
     constructor(IERC20 _vader) ERC20Permit("XVader") ERC20("XVader", "xVADER") {
         require(
-            _vader != IERC20(_ZERO_ADDRESS),
+            _vader != IERC20(address(0)),
             "XVader::constructor: _vader cannot be a zero address"
         );
         vader = _vader;
