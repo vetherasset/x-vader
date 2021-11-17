@@ -7,7 +7,7 @@ def test_constructor(deployer, vader, xVader):
         XVader.deploy(ZERO_ADDRESS, {"from": deployer})
 
     assert xVader.vader() == vader
-    assert xVader.name() == "XVader"
+    assert xVader.name() == "xVADER"
     assert xVader.symbol() == "xVADER"
     assert xVader.decimals() == 18
 
