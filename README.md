@@ -16,6 +16,8 @@ pip install eth-brownie
 brownie pm install OpenZeppelin/openzeppelin-contracts@4.3.2
 
 npm i
+
+cp .env.sample .env
 ```
 
 ### Development
@@ -28,6 +30,12 @@ brownie compile
 
 ```shell
 brownie test tests/path-to-test-file-or-folder
+```
+
+#### Deploy
+
+```shell
+brownie run scripts/deploy_test_token.py --network kovan
 ```
 
 ### Misc
