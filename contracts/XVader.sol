@@ -1,11 +1,12 @@
-// SPDX-License-Identifier: MIT AND AGPL-3.0-or-later
+// SPDX-License-Identifier: MIT
 pragma solidity 0.8.9;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "./Ownable.sol";
 
-contract XVader is ERC20Votes, ReentrancyGuard {
+contract XVader is ERC20Votes, ReentrancyGuard, Ownable {
     // Address of vader token
     IERC20 public immutable vader;
 

@@ -10,6 +10,7 @@ def test_constructor(deployer, vader, xVader):
     with brownie.reverts("min stake duration = 0"):
         XVader.deploy(vader, 0, {"from": deployer})
 
+    assert xVader.owner() == deployer
     assert xVader.vader() == vader
     assert xVader.MIN_STAKE_DURATION() > 0
     assert xVader.name() == "xVADER"

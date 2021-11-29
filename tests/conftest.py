@@ -1,5 +1,5 @@
 import pytest
-from brownie import accounts, XVader, TestToken
+from brownie import accounts, XVader, Ownable, TestToken
 
 
 @pytest.fixture(scope="session")
@@ -10,6 +10,11 @@ def deployer(accounts):
 @pytest.fixture(scope="session")
 def user(accounts):
     yield accounts[1]
+
+
+@pytest.fixture(scope="module")
+def ownable(deployer):
+    yield Ownable.deploy({"from": deployer})
 
 
 @pytest.fixture(scope="module")
