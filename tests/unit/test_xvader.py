@@ -18,9 +18,11 @@ def test_constructor(deployer, vader, xVader):
     assert xVader.decimals() == 18
 
 
-def test_set_min_stake_duration(deployer, user_1, xVader):
+def test_set_min_stake_duration(deployer, users, xVader):
+    user = users[0]
+
     with brownie.reverts("not owner"):
-        xVader.setMinStakeDuration(1, {"from": user_1})
+        xVader.setMinStakeDuration(1, {"from": user})
 
     with brownie.reverts("min stake duration = 0"):
         xVader.setMinStakeDuration(0, {"from": deployer})
@@ -31,45 +33,47 @@ def test_set_min_stake_duration(deployer, user_1, xVader):
     assert tx.events["SetMinStakeDuration"].values() == [11]
 
 
-def test_enter(vader, xVader, user_1):
+def test_enter(vader, xVader, users):
+    user = users[0]
+
     # mint 1:1 xVader:Vader when xVader or Vader = 0
     amount = 1000 * 1e18
-    vader.mint(user_1, amount)
-    vader.approve(xVader, amount, {"from": user_1})
+    vader.mint(user, amount)
+    vader.approve(xVader, amount, {"from": user})
 
     def snapshot():
         return {
             "vader": {
                 "xVader": vader.balanceOf(xVader),
-                "user_1": vader.balanceOf(user_1),
+                "user": vader.balanceOf(user),
             },
             "xVader": {
                 "totalSupply": xVader.totalSupply(),
-                "user_1": xVader.balanceOf(user_1),
+                "user": xVader.balanceOf(user),
             },
         }
 
     before = snapshot()
-    tx = xVader.enter(amount, {"from": user_1})
+    tx = xVader.enter(amount, {"from": user})
     after = snapshot()
 
-    assert after["vader"]["user_1"] == before["vader"]["user_1"] - amount
+    assert after["vader"]["user"] == before["vader"]["user"] - amount
     assert after["vader"]["xVader"] == before["vader"]["xVader"] + amount
     assert after["xVader"]["totalSupply"] == amount
-    assert after["xVader"]["user_1"] == amount
-    assert xVader.lastStakedAt(user_1) == tx.timestamp
+    assert after["xVader"]["user"] == amount
+    assert xVader.lastStakedAt(user) == tx.timestamp
 
     # mint pro-rata
-    vader.mint(user_1, 1000 * 1e18)
-    vader.approve(xVader, amount, {"from": user_1})
+    vader.mint(user, 1000 * 1e18)
+    vader.approve(xVader, amount, {"from": user})
 
-    xVader.enter(500 * 1e18, {"from": user_1})
+    xVader.enter(500 * 1e18, {"from": user})
 
     before = snapshot()
-    tx = xVader.enter(500 * 1e18, {"from": user_1})
+    tx = xVader.enter(500 * 1e18, {"from": user})
     after = snapshot()
 
-    assert xVader.lastStakedAt(user_1) == tx.timestamp
+    assert xVader.lastStakedAt(user) == tx.timestamp
 
     # rounding error from float
     error = 1e5
@@ -78,18 +82,18 @@ def test_enter(vader, xVader, user_1):
     )
 
     assert (
-        abs(
-            after["xVader"]["user_1"] - (before["xVader"]["user_1"] + expected_increase)
-        )
+        abs(after["xVader"]["user"] - (before["xVader"]["user"] + expected_increase))
         <= error
     )
 
 
-def test_leave(chain, vader, xVader, user_1):
-    with brownie.reverts("time < min"):
-        xVader.leave(1, {"from": user_1})
+def test_leave(chain, vader, xVader, users):
+    user = users[0]
 
-    last_staked_at = xVader.lastStakedAt(user_1)
+    with brownie.reverts("time < min"):
+        xVader.leave(1, {"from": user})
+
+    last_staked_at = xVader.lastStakedAt(user)
     min_stake_duration = xVader.minStakeDuration()
     duration = last_staked_at + min_stake_duration
 
@@ -99,24 +103,21 @@ def test_leave(chain, vader, xVader, user_1):
         return {
             "vader": {
                 "xVader": vader.balanceOf(xVader),
-                "user_1": vader.balanceOf(user_1),
+                "user": vader.balanceOf(user),
             },
             "xVader": {
                 "totalSupply": xVader.totalSupply(),
-                "user_1": xVader.balanceOf(user_1),
+                "user": xVader.balanceOf(user),
             },
         }
 
-    shares = xVader.balanceOf(user_1)
+    shares = xVader.balanceOf(user)
 
     before = snapshot()
-    xVader.leave(shares, {"from": user_1})
+    xVader.leave(shares, {"from": user})
     after = snapshot()
 
-    assert (
-        after["vader"]["user_1"]
-        == before["vader"]["user_1"] + before["vader"]["xVader"]
-    )
+    assert after["vader"]["user"] == before["vader"]["user"] + before["vader"]["xVader"]
     assert after["vader"]["xVader"] == 0
     assert after["xVader"]["totalSupply"] == 0
-    assert after["xVader"]["user_1"] == 0
+    assert after["xVader"]["user"] == 0
