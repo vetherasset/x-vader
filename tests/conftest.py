@@ -8,8 +8,13 @@ def deployer(accounts):
 
 
 @pytest.fixture(scope="session")
-def user(accounts):
+def user_1(accounts):
     yield accounts[1]
+
+
+@pytest.fixture(scope="session")
+def user_2(accounts):
+    yield accounts[2]
 
 
 @pytest.fixture(scope="module")
