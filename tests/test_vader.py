@@ -12,7 +12,7 @@ def test_constructor(deployer, vader, xVader):
 
     assert xVader.owner() == deployer
     assert xVader.vader() == vader
-    assert xVader.MIN_STAKE_DURATION() > 0
+    assert xVader.minStakeDuration() > 0
     assert xVader.name() == "xVADER"
     assert xVader.symbol() == "xVADER"
     assert xVader.decimals() == 18
@@ -75,7 +75,7 @@ def test_leave(chain, vader, xVader, user):
         xVader.leave(1, {"from": user})
 
     last_staked_at = xVader.lastStakedAt(user)
-    min_stake_duration = xVader.MIN_STAKE_DURATION()
+    min_stake_duration = xVader.minStakeDuration()
     duration = last_staked_at + min_stake_duration
 
     chain.sleep(duration)

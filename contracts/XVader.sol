@@ -11,7 +11,7 @@ contract XVader is ERC20Votes, ReentrancyGuard, Ownable {
     IERC20 public immutable vader;
 
     // Minimum time staked before unstake can be called
-    uint public immutable MIN_STAKE_DURATION;
+    uint public minStakeDuration;
 
     // Mapping from staker to timestamp of last stake
     mapping(address => uint) public lastStakedAt;
@@ -28,7 +28,7 @@ contract XVader is ERC20Votes, ReentrancyGuard, Ownable {
         vader = _vader;
 
         require(_minStakeDuration > 0, "min stake duration = 0");
-        MIN_STAKE_DURATION = _minStakeDuration;
+        minStakeDuration = _minStakeDuration;
     }
 
     // Locks vader and mints xVader
@@ -59,7 +59,7 @@ contract XVader is ERC20Votes, ReentrancyGuard, Ownable {
     // Unlocks the staked + gained vader and burns xVader
     function leave(uint _shares) external nonReentrant {
         require(
-            block.timestamp >= lastStakedAt[msg.sender] + MIN_STAKE_DURATION,
+            block.timestamp >= lastStakedAt[msg.sender] + minStakeDuration,
             "time < min"
         );
 
