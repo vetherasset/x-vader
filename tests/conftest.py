@@ -14,7 +14,8 @@ def user(accounts):
 
 @pytest.fixture(scope="module")
 def xVader(deployer, vader):
-    yield XVader.deploy(vader, {"from": deployer})
+    min_stake_duration = 10
+    yield XVader.deploy(vader, min_stake_duration, {"from": deployer})
 
 
 # test contracts
