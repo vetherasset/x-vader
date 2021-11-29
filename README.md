@@ -26,7 +26,7 @@ brownie compile
 ### Test
 
 ```shell
-brownie test tests/path-to-test-file-or-folder
+brownie test tests/path-to-test-file-or-folder -s
 ```
 
 #### Deploy
