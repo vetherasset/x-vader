@@ -7,6 +7,8 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "./Ownable.sol";
 
 contract XVader is ERC20Votes, ReentrancyGuard, Ownable {
+    event SetMinStakeDuration(uint duration);
+
     // Address of vader token
     IERC20 public immutable vader;
 
@@ -26,9 +28,17 @@ contract XVader is ERC20Votes, ReentrancyGuard, Ownable {
     {
         require(_vader != IERC20(address(0)), "vader = zero address");
         vader = _vader;
+        _setMinStakeDuration(_minStakeDuration);
+    }
 
+    function _setMinStakeDuration(uint _minStakeDuration) private {
         require(_minStakeDuration > 0, "min stake duration = 0");
         minStakeDuration = _minStakeDuration;
+        emit SetMinStakeDuration(_minStakeDuration);
+    }
+
+    function setMinStakeDuration(uint _minStakeDuration) external onlyOwner {
+        _setMinStakeDuration(_minStakeDuration);
     }
 
     // Locks vader and mints xVader

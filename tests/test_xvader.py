@@ -18,6 +18,19 @@ def test_constructor(deployer, vader, xVader):
     assert xVader.decimals() == 18
 
 
+def test_set_min_stake_duration(deployer, user, xVader):
+    with brownie.reverts("not owner"):
+        xVader.setMinStakeDuration(1, {"from": user})
+
+    with brownie.reverts("min stake duration = 0"):
+        xVader.setMinStakeDuration(0, {"from": deployer})
+
+    tx = xVader.setMinStakeDuration(11, {"from": deployer})
+
+    assert xVader.minStakeDuration() == 11
+    assert tx.events["SetMinStakeDuration"].values() == [11]
+
+
 def test_enter(vader, xVader, user):
     # mint 1:1 xVader:Vader when xVader or Vader = 0
     amount = 1000 * 1e18
