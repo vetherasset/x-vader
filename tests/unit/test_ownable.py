@@ -1,10 +1,5 @@
 import brownie
-from brownie import Ownable, ZERO_ADDRESS
-
-
-def test_constructor(deployer):
-    ownable = Ownable.deploy({"from": deployer})
-    assert ownable.owner() == deployer
+from brownie import ZERO_ADDRESS
 
 
 def test_nominate_new_owner(ownable, deployer, users):
