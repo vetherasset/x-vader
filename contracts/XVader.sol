@@ -2,21 +2,29 @@
 pragma solidity 0.8.9;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20VotesUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
 import "./Ownable.sol";
 
-contract XVader is ERC20Votes, ReentrancyGuard, Ownable {
+contract XVader is
+    Initializable,
+    ERC20VotesUpgradeable,
+    ReentrancyGuardUpgradeable,
+    Ownable
+{
     // Address of vader token
-    IERC20 public immutable vader;
+    IERC20 public vader;
 
-    /*
-     * @dev Initializes contract's state by setting vader's tokens address and
-     * setting current token's name and symbol.
-     **/
-    constructor(IERC20 _vader) ERC20Permit("xVADER") ERC20("xVADER", "xVADER") {
+    // TODO: fix tests
+    function initialize(IERC20 _vader) external initializer {
         require(_vader != IERC20(address(0)), "vader = zero address");
         vader = _vader;
+
+        owner = msg.sender;
+
+        __ERC20_init("xVADER", "xVADER");
+        __ERC20Permit_init("xVADER");
     }
 
     // Locks vader and mints xVader
