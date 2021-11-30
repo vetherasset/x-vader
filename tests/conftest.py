@@ -19,8 +19,7 @@ def ownable(deployer):
 
 @pytest.fixture(scope="module")
 def xVader(deployer, vader):
-    min_stake_duration = 10
-    yield XVader.deploy(vader, min_stake_duration, {"from": deployer})
+    yield XVader.deploy(vader, {"from": deployer})
 
 
 # test contracts
