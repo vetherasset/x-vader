@@ -11,6 +11,7 @@ source venv/bin/activate
 pip install eth-brownie
 
 brownie pm install OpenZeppelin/openzeppelin-contracts@4.3.2
+brownie pm install OpenZeppelin/openzeppelin-contracts-upgradeable@4.3.2
 
 npm i
 
