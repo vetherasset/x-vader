@@ -7,7 +7,7 @@ def test_constructor(deployer, vader, xVader):
         min_stake_duration = 10
         XVader.deploy(ZERO_ADDRESS, min_stake_duration, {"from": deployer})
 
-    with brownie.reverts("min stake duration = 0"):
+    with brownie.reverts("duration = 0"):
         XVader.deploy(vader, 0, {"from": deployer})
 
     assert xVader.owner() == deployer
@@ -24,7 +24,7 @@ def test_set_min_stake_duration(deployer, users, xVader):
     with brownie.reverts("not owner"):
         xVader.setMinStakeDuration(1, {"from": user})
 
-    with brownie.reverts("min stake duration = 0"):
+    with brownie.reverts("duration = 0"):
         xVader.setMinStakeDuration(0, {"from": deployer})
 
     tx = xVader.setMinStakeDuration(11, {"from": deployer})

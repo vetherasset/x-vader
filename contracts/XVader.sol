@@ -32,7 +32,7 @@ contract XVader is ERC20Votes, ReentrancyGuard, Ownable {
     }
 
     function _setMinStakeDuration(uint _minStakeDuration) private {
-        require(_minStakeDuration > 0, "min stake duration = 0");
+        require(_minStakeDuration > 0, "duration = 0");
         minStakeDuration = _minStakeDuration;
         emit SetMinStakeDuration(_minStakeDuration);
     }
@@ -78,5 +78,39 @@ contract XVader is ERC20Votes, ReentrancyGuard, Ownable {
 
         _burn(msg.sender, _shares);
         vader.transfer(msg.sender, vaderAmount);
+    }
+
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint amount
+    ) internal override {
+        // skip amount = 0, mint, burn and transfer to self
+        if (amount > 0 && from != address(0) && to != address(0) && from != to) {
+            uint fromTimestamp = lastStakedAt[from];
+            uint toTimestamp = lastStakedAt[to];
+
+            if (toTimestamp > 0) {
+                /*
+                f = lastStakedAt[from]
+                t = lastStakedAt[to]
+                a = amount
+                b = balance of from
+
+                if f <= t
+                    lastStakedAt[to] = t
+                else
+                    lastStakedAt[to] = (f - t) * a / b + t
+                */
+                if (fromTimestamp > toTimestamp) {
+                    lastStakedAt[to] +=
+                        ((fromTimestamp - toTimestamp) * amount) /
+                        balanceOf(from);
+                }
+            } else {
+                // same time stamp as enter()
+                lastStakedAt[to] = block.timestamp;
+            }
+        }
     }
 }
