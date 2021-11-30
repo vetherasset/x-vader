@@ -23,6 +23,7 @@ contract XVader is
 
         owner = msg.sender;
 
+        __ReentrancyGuard_init();
         __ERC20_init("xVADER", "xVADER");
         __ERC20Permit_init("xVADER");
     }
