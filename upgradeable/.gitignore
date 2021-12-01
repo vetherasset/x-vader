@@ -18,5 +18,5 @@ typechain
 cache
 artifacts
 .openzeppelin
-.secret*
-!.secrets.sample.json
+secret*
+!secrets.sample.json
