@@ -7,7 +7,10 @@ const VADER = {
 
 const XVADER = {
     mainnet: "",
-    kovan: "0x274cA8bb64D3d38B1190D422BbF044C6626fAeD8",
+    // kovan: "",
+    // proxy admin 0x24B24A311d2Df62f1DFbf7cba73aB0A4173D85dA
+    // x vader with test token
+    kovan: "0x0AA1056Ee563C14484fCC530625cA74575C97512",
 }
 
 module.exports = {
