@@ -1,11 +1,12 @@
 const VADER = {
     mainnet: "0x2602278EE1882889B946eb11DC0E810075650983",
-    kovan: "0xcCb3AeF7Baa506e2D05193e38e88459F68AC1a8F",
+    // kovan: "0xcCb3AeF7Baa506e2D05193e38e88459F68AC1a8F",
+    // test token
+    kovan: "0x1fd03e4eA209497910fACE52e5ca39124ef2E8BE",
 }
 
 const XVADER = {
     mainnet: "",
-    // test token 0x1fd03e4eA209497910fACE52e5ca39124ef
     kovan: "0x274cA8bb64D3d38B1190D422BbF044C6626fAeD8",
 }
 

@@ -13,6 +13,7 @@ contract XVader is
     ReentrancyGuardUpgradeable,
     Ownable
 {
+    /// @custom:oz-upgrades-unsafe-allow state-variable-immutable
     IERC20 public immutable vader;
 
     /// @custom:oz-upgrades-unsafe-allow constructor

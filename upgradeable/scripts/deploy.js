@@ -9,6 +9,8 @@ async function main() {
         const vader = VADER[hre.network.name]
         assert(vader, "vader not defined")
 
+        console.log(`vader: ${vader}`)
+
         const XVader = await ethers.getContractFactory("XVader")
         console.log("Deploying XVader...")
         const xVader = await upgrades.deployProxy(XVader, {
