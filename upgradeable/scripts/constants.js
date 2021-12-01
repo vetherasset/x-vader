@@ -5,6 +5,7 @@ const VADER = {
 
 const XVADER = {
     mainnet: "",
+    // test token 0x1fd03e4eA209497910fACE52e5ca39124ef
     kovan: "0x274cA8bb64D3d38B1190D422BbF044C6626fAeD8",
 }
 
