@@ -13,14 +13,16 @@ contract XVader is
     ReentrancyGuardUpgradeable,
     Ownable
 {
-    // Address of vader token
-    IERC20 public vader;
+    IERC20 public immutable vader;
 
-    // TODO: fix tests
-    function initialize(IERC20 _vader) external initializer {
+    /// @custom:oz-upgrades-unsafe-allow constructor
+    constructor(IERC20 _vader) {
         require(_vader != IERC20(address(0)), "vader = zero address");
         vader = _vader;
+    }
 
+    // TODO: fix python tests
+    function initialize() external initializer {
         owner = msg.sender;
 
         __ReentrancyGuard_init();

@@ -13,8 +13,8 @@ contract XVaderV2 is
     ReentrancyGuardUpgradeable,
     Ownable
 {
-    // Address of vader token
-    IERC20 public vader;
+    /// @custom:oz-upgrades-unsafe-allow state-variable-immutable
+    IERC20 public immutable vader;
 
     // used for testing upgrade
     uint public version;
@@ -23,25 +23,10 @@ contract XVaderV2 is
         version += 1;
     }
 
-    /*
-    TODO: questions
-    - function order matters?
-    - init is not called on v2?
-    */
-
-    // TODO: remove constructor
-
-    function initialize(IERC20 _vader) external initializer {
+    /// @custom:oz-upgrades-unsafe-allow constructor
+    constructor(IERC20 _vader) initializer {
         require(_vader != IERC20(address(0)), "vader = zero address");
         vader = _vader;
-
-        owner = msg.sender;
-
-        __ReentrancyGuard_init();
-        __ERC20_init("xVADER", "xVADER");
-        __ERC20Permit_init("xVADER");
-
-        version = 2;
     }
 
     // Locks vader and mints xVader
