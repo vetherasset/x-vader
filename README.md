@@ -12,7 +12,6 @@ cp secrets.sample.json secrets.json
 ```shell
 npx hardhat compile
 
-npx hardhat node
 npx hardhat test
 ```
 
@@ -27,7 +26,7 @@ npx hardhat compile
 npx hardhat run --network kovan scripts/deploy.js
 
 # verify
-npx hardhat verify --network mainnet DEPLOYED_CONTRACT_ADDRESS "Constructor argument 1"
+npx hardhat verify --network kovan DEPLOYED_CONTRACT_ADDRESS "Constructor argument 1"
 
 # upgrade
 npx hardhat run --network kovan scripts/test/upgrade.js
