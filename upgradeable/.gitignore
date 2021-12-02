@@ -17,6 +17,6 @@ typechain
 #Hardhat files
 cache
 artifacts
-.openzeppelin/kovan.json
+.openzeppelin
 secret*
 !secrets.sample.json

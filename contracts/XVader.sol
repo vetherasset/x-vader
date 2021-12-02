@@ -16,7 +16,6 @@ contract XVader is
     // Address of vader token
     IERC20 public vader;
 
-    // TODO: fix tests
     function initialize(IERC20 _vader) external initializer {
         require(_vader != IERC20(address(0)), "vader = zero address");
         vader = _vader;
