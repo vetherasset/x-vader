@@ -1,5 +1,5 @@
-const { expect } = require("./setup")
-const { ZERO_ADDRESS } = require("./util")
+const { expect } = require("../setup")
+const { ZERO_ADDRESS } = require("../util")
 
 let accounts
 let admin
