@@ -7,9 +7,8 @@ const VADER = {
 
 // address of proxy
 const XVADER = {
-    mainnet: "",
+    mainnet: "0x665ff8fAA06986Bd6f1802fA6C1D2e7d780a7369",
     kovan: "0xfD224C48F57deaCd0D8a5C3C4917eecE472Bb134",
-
     // x vader with test token
     // proxy admin 0x24B24A311d2Df62f1DFbf7cba73aB0A4173D85dA
     // kovan: "0x0AA1056Ee563C14484fCC530625cA74575C97512",

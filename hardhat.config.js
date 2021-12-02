@@ -11,6 +11,10 @@ module.exports = {
             url: `https://eth-kovan.alchemyapi.io/v2/${alchemyApiKey}`,
             accounts: { mnemonic: mnemonic },
         },
+        mainnet: {
+            url: `https://eth-mainnet.alchemyapi.io/v2/${alchemyApiKey}`,
+            accounts: { mnemonic: mnemonic },
+        },
     },
     etherscan: {
         apiKey: etherscanApiKey,
