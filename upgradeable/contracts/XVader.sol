@@ -22,7 +22,6 @@ contract XVader is
         vader = _vader;
     }
 
-    // TODO: fix python tests
     function initialize() external initializer {
         owner = msg.sender;
 

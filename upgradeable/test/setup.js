@@ -3,5 +3,5 @@ chai.use(require("chai-as-promised"))
 const { expect } = chai
 
 module.exports = {
-  expect,
+    expect,
 }
