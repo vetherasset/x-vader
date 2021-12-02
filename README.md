@@ -34,8 +34,8 @@ npx hardhat run --network kovan scripts/test/upgrade.js
 
 ### Mainnet
 
--   ProxyAdmin: [0x888939b157032189D667577D4e5A3C93c1B1FdC7](https://kovan.etherscan.io/address/0x888939b157032189D667577D4e5A3C93c1B1FdC7)
--   XVader (Proxy): [0x665ff8fAA06986Bd6f1802fA6C1D2e7d780a7369](https://kovan.etherscan.io/address/0x665ff8fAA06986Bd6f1802fA6C1D2e7d780a7369)
+-   ProxyAdmin: [0x888939b157032189D667577D4e5A3C93c1B1FdC7](https://etherscan.io/address/0x888939b157032189D667577D4e5A3C93c1B1FdC7)
+-   XVader (Proxy): [0x665ff8fAA06986Bd6f1802fA6C1D2e7d780a7369](https://etherscan.io/address/0x665ff8fAA06986Bd6f1802fA6C1D2e7d780a7369)
 
 ### Kovan
 
