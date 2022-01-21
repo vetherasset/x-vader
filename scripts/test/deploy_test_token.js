@@ -9,7 +9,7 @@ async function main() {
 
         const TestToken = await ethers.getContractFactory("TestToken")
         const testToken = await TestToken.deploy("test", "TEST")
-        testToken.deployed()
+        await testToken.deployed()
 
         console.log(`TestToken: ${testToken.address}`)
     } catch (error) {
