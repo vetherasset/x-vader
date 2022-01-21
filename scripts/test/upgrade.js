@@ -20,7 +20,7 @@ async function main() {
         const xVaderV2 = await upgrades.upgradeProxy(xVader, XVaderV2, {
             constructorArgs: [vader],
         })
-        xVaderV2.deployed()
+        await xVaderV2.deployed()
 
         console.log("XVader upgraded")
     } catch (error) {
